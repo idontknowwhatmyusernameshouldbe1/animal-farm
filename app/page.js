@@ -12,8 +12,7 @@ export default function HomePage() {
       <section className="hero">
         <h1 className="hero-brand">Animal Farm</h1>
         <p className="hero-copy">
-          A quiet place for your pets — their photos, names, and the little
-          stories that make them yours.
+          Photos, names, and the small stories that make them yours.
         </p>
         <div className="hero-actions">
           <Link href="/pets/new" className="btn btn-primary">

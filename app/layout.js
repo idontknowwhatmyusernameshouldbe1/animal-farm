@@ -1,14 +1,14 @@
-import { Bricolage_Grotesque, Figtree } from "next/font/google";
+import { Plus_Jakarta_Sans, Syne } from "next/font/google";
 import Link from "next/link";
 import "./globals.css";
 
-const display = Bricolage_Grotesque({
+const display = Syne({
   subsets: ["latin"],
   variable: "--font-display",
   weight: ["600", "700", "800"],
 });
 
-const body = Figtree({
+const body = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
@@ -33,9 +33,6 @@ export default function RootLayout({ children }) {
           <header className="site-header">
             <Link href="/" className="brand-mark">
               Animal Farm
-            </Link>
-            <Link href="/pets/new" className="header-cta">
-              Add a pet
             </Link>
           </header>
           <main className="site-main">{children}</main>
