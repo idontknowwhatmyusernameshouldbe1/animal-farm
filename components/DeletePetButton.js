@@ -1,15 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { useLanguage } from "@/components/LanguageProvider";
 import { deletePet } from "@/lib/pets";
 
 export default function DeletePetButton({ petId, petName, onDeleted }) {
+  const { t } = useLanguage();
   const [busy, setBusy] = useState(false);
 
   async function onDelete() {
-    const ok = window.confirm(
-      `Remove ${petName} from Animal Farm? This cannot be undone.`
-    );
+    const ok = window.confirm(t.deleteConfirm(petName));
     if (!ok) return;
 
     setBusy(true);
@@ -17,13 +17,13 @@ export default function DeletePetButton({ petId, petName, onDeleted }) {
       const deleted = await deletePet(petId);
       if (!deleted) {
         setBusy(false);
-        window.alert("Could not delete this pet. Try again.");
+        window.alert(t.deleteFailed);
         return;
       }
       onDeleted?.();
     } catch {
       setBusy(false);
-      window.alert("Could not delete this pet. Try again.");
+      window.alert(t.deleteFailed);
     }
   }
 
@@ -34,7 +34,7 @@ export default function DeletePetButton({ petId, petName, onDeleted }) {
       onClick={onDelete}
       disabled={busy}
     >
-      {busy ? "Removing…" : "Delete"}
+      {busy ? t.removing : t.delete}
     </button>
   );
 }

@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import FadeImage from "@/components/FadeImage";
+import { useLanguage } from "@/components/LanguageProvider";
 import { listPets, petImageUrl } from "@/lib/pets";
 
 export default function HomeGallery() {
+  const { t } = useLanguage();
   const [pets, setPets] = useState(null);
   const [urls, setUrls] = useState({});
 
@@ -36,22 +38,22 @@ export default function HomeGallery() {
   }, []);
 
   if (pets === null) {
-    return <p className="page-sub">Loading your farm…</p>;
+    return <p className="page-sub">{t.loadingFarm}</p>;
   }
 
   if (pets.length === 0) {
     return (
       <div className="empty-state">
-        <p>No animals on the farm yet. Add your first pet to get started.</p>
+        <p>{t.emptyFarm}</p>
         <Link href="/pets/new" className="btn btn-primary">
-          Add a pet
+          {t.addPet}
         </Link>
       </div>
     );
   }
 
   return (
-    <section className="gallery" aria-label="Pet gallery">
+    <section className="gallery" aria-label={t.galleryLabel}>
       {pets.map((pet) => (
         <Link
           key={pet.id}

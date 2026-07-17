@@ -1,5 +1,5 @@
 import { Plus_Jakarta_Sans, Syne } from "next/font/google";
-import Link from "next/link";
+import AppShell from "@/components/AppShell";
 import "./globals.css";
 
 const display = Syne({
@@ -29,14 +29,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${display.variable} ${body.variable}`}>
       <body>
-        <div className="app-shell">
-          <header className="site-header">
-            <Link href="/" className="brand-mark">
-              Animal Farm
-            </Link>
-          </header>
-          <main className="site-main">{children}</main>
-        </div>
+        <AppShell>{children}</AppShell>
       </body>
     </html>
   );

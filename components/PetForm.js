@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { useLanguage } from "@/components/LanguageProvider";
 import { createPet, updatePet } from "@/lib/pets";
 
 export default function PetForm({
@@ -11,6 +12,7 @@ export default function PetForm({
   initialDescription = "",
   initialImageUrl = "",
 }) {
+  const { t } = useLanguage();
   const router = useRouter();
   const fileRef = useRef(null);
   const [name, setName] = useState(initialName);
@@ -34,13 +36,13 @@ export default function PetForm({
       const file = fileRef.current?.files?.[0] ?? null;
 
       if (mode === "create" && !file) {
-        setError("Please choose a photo.");
+        setError(t.errorChoosePhoto);
         setSaving(false);
         return;
       }
 
       if (!name.trim()) {
-        setError("Name is required.");
+        setError(t.errorNameRequired);
         setSaving(false);
         return;
       }
@@ -51,14 +53,14 @@ export default function PetForm({
           : await updatePet(petId, { name, description, file });
 
       if (!pet) {
-        setError("Pet not found.");
+        setError(t.errorPetNotFound);
         setSaving(false);
         return;
       }
 
       router.push(`/pets/view?id=${encodeURIComponent(pet.id)}`);
     } catch {
-      setError("Could not save. Try another photo or try again.");
+      setError(t.errorCouldNotSave);
       setSaving(false);
     }
   }
@@ -66,7 +68,7 @@ export default function PetForm({
   return (
     <form className="form-panel form-stack" onSubmit={onSubmit}>
       <div className="field">
-        <label htmlFor="photo">Photo</label>
+        <label htmlFor="photo">{t.photo}</label>
         <label className="photo-picker">
           <input
             id="photo"
@@ -79,24 +81,24 @@ export default function PetForm({
           />
           {preview ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={preview} alt="Preview" className="photo-preview" />
+            <img src={preview} alt={t.photoPreview} className="photo-preview" />
           ) : (
             <div className="photo-picker-hint">
-              <strong>Tap to add a photo</strong>
-              Take a picture or choose from your library
+              <strong>{t.photoHintTitle}</strong>
+              {t.photoHintBody}
             </div>
           )}
         </label>
       </div>
 
       <div className="field">
-        <label htmlFor="name">Name</label>
+        <label htmlFor="name">{t.name}</label>
         <input
           id="name"
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          placeholder="e.g. Charlie"
+          placeholder={t.namePlaceholder}
           required
           maxLength={80}
           autoComplete="off"
@@ -104,12 +106,12 @@ export default function PetForm({
       </div>
 
       <div className="field">
-        <label htmlFor="description">Description</label>
+        <label htmlFor="description">{t.description}</label>
         <textarea
           id="description"
           value={description}
           onChange={(e) => setDescription(e.target.value)}
-          placeholder="A little about this friend…"
+          placeholder={t.descriptionPlaceholder}
           maxLength={2000}
         />
       </div>
@@ -118,7 +120,11 @@ export default function PetForm({
 
       <div className="form-actions">
         <button type="submit" className="btn btn-primary" disabled={saving}>
-          {saving ? "Saving…" : mode === "create" ? "Save pet" : "Save changes"}
+          {saving
+            ? t.saving
+            : mode === "create"
+              ? t.savePet
+              : t.saveChanges}
         </button>
         <button
           type="button"
@@ -126,7 +132,7 @@ export default function PetForm({
           disabled={saving}
           onClick={() => router.back()}
         >
-          Cancel
+          {t.cancel}
         </button>
       </div>
     </form>

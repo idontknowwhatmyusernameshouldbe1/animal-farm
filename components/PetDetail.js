@@ -5,9 +5,11 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import DeletePetButton from "@/components/DeletePetButton";
 import FadeImage from "@/components/FadeImage";
+import { useLanguage } from "@/components/LanguageProvider";
 import { getPet, petImageUrl } from "@/lib/pets";
 
 export default function PetDetail() {
+  const { t } = useLanguage();
   const router = useRouter();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
@@ -45,19 +47,17 @@ export default function PetDetail() {
   }, [id]);
 
   if (pet === undefined) {
-    return <p className="page-sub">Loading…</p>;
+    return <p className="page-sub">{t.loading}</p>;
   }
 
   if (!pet) {
     return (
       <>
         <Link href="/" className="back-link">
-          ← Back to farm
+          {t.backToFarm}
         </Link>
-        <h1 className="page-title">Pet not found</h1>
-        <p className="page-sub">
-          This pet is not in this browser&apos;s farm data.
-        </p>
+        <h1 className="page-title">{t.petNotFound}</h1>
+        <p className="page-sub">{t.petNotFoundSub}</p>
       </>
     );
   }
@@ -65,7 +65,7 @@ export default function PetDetail() {
   return (
     <>
       <Link href="/" className="back-link">
-        ← Back to farm
+        {t.backToFarm}
       </Link>
       <article className="detail">
         <div className="detail-image-wrap">
@@ -78,16 +78,14 @@ export default function PetDetail() {
         <div className="detail-body">
           <h1>{pet.name}</h1>
           <p className="detail-description">
-            {pet.description?.trim()
-              ? pet.description
-              : "No description yet."}
+            {pet.description?.trim() ? pet.description : t.noDescription}
           </p>
           <div className="detail-actions">
             <Link
               href={`/pets/edit?id=${encodeURIComponent(pet.id)}`}
               className="btn btn-primary"
             >
-              Edit
+              {t.edit}
             </Link>
             <DeletePetButton
               petId={pet.id}

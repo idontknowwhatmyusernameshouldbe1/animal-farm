@@ -4,9 +4,11 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import PetForm from "@/components/PetForm";
+import { useLanguage } from "@/components/LanguageProvider";
 import { getPet, petImageUrl } from "@/lib/pets";
 
 export default function PetEdit() {
+  const { t } = useLanguage();
   const searchParams = useSearchParams();
   const id = searchParams.get("id");
   const [pet, setPet] = useState(undefined);
@@ -43,19 +45,17 @@ export default function PetEdit() {
   }, [id]);
 
   if (pet === undefined) {
-    return <p className="page-sub">Loading…</p>;
+    return <p className="page-sub">{t.loading}</p>;
   }
 
   if (!pet) {
     return (
       <>
         <Link href="/" className="back-link">
-          ← Back to farm
+          {t.backToFarm}
         </Link>
-        <h1 className="page-title">Pet not found</h1>
-        <p className="page-sub">
-          This pet is not in this browser&apos;s farm data.
-        </p>
+        <h1 className="page-title">{t.petNotFound}</h1>
+        <p className="page-sub">{t.petNotFoundSub}</p>
       </>
     );
   }
@@ -66,10 +66,10 @@ export default function PetEdit() {
         href={`/pets/view?id=${encodeURIComponent(pet.id)}`}
         className="back-link"
       >
-        ← Back to {pet.name}
+        {t.backToPet(pet.name)}
       </Link>
-      <h1 className="page-title">Edit {pet.name}</h1>
-      <p className="page-sub">Update their photo, name, or description.</p>
+      <h1 className="page-title">{t.editTitle(pet.name)}</h1>
+      <p className="page-sub">{t.editSub}</p>
       <PetForm
         mode="edit"
         petId={pet.id}

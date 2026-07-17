@@ -1,4 +1,5 @@
 import { Suspense } from "react";
+import LoadingText from "@/components/LoadingText";
 import PetDetail from "@/components/PetDetail";
 
 export const metadata = {
@@ -7,7 +8,7 @@ export const metadata = {
 
 export default function PetViewPage() {
   return (
-    <Suspense fallback={<p className="page-sub">Loading…</p>}>
+    <Suspense fallback={<LoadingText />}>
       <PetDetail />
     </Suspense>
   );
