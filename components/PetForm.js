@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { createPet, updatePet } from "@/lib/pets";
 
 export default function PetForm({
   mode = "create",
@@ -30,14 +31,7 @@ export default function PetForm({
     setSaving(true);
 
     try {
-      const formData = new FormData();
-      formData.set("name", name);
-      formData.set("description", description);
-
-      const file = fileRef.current?.files?.[0];
-      if (file) {
-        formData.set("photo", file);
-      }
+      const file = fileRef.current?.files?.[0] ?? null;
 
       if (mode === "create" && !file) {
         setError("Please choose a photo.");
@@ -45,22 +39,26 @@ export default function PetForm({
         return;
       }
 
-      const url = mode === "create" ? "/api/pets" : `/api/pets/${petId}`;
-      const method = mode === "create" ? "POST" : "PUT";
-
-      const response = await fetch(url, { method, body: formData });
-      const data = await response.json().catch(() => ({}));
-
-      if (!response.ok) {
-        setError(data.error || "Something went wrong.");
+      if (!name.trim()) {
+        setError("Name is required.");
         setSaving(false);
         return;
       }
 
-      router.push(`/pets/${data.id}`);
-      router.refresh();
+      const pet =
+        mode === "create"
+          ? await createPet({ name, description, file })
+          : await updatePet(petId, { name, description, file });
+
+      if (!pet) {
+        setError("Pet not found.");
+        setSaving(false);
+        return;
+      }
+
+      router.push(`/pets/view?id=${encodeURIComponent(pet.id)}`);
     } catch {
-      setError("Could not save. Check your connection and try again.");
+      setError("Could not save. Try another photo or try again.");
       setSaving(false);
     }
   }

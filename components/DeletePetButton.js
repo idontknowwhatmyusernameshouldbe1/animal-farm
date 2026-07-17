@@ -1,10 +1,9 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { deletePet } from "@/lib/pets";
 
-export default function DeletePetButton({ petId, petName }) {
-  const router = useRouter();
+export default function DeletePetButton({ petId, petName, onDeleted }) {
   const [busy, setBusy] = useState(false);
 
   async function onDelete() {
@@ -15,14 +14,13 @@ export default function DeletePetButton({ petId, petName }) {
 
     setBusy(true);
     try {
-      const response = await fetch(`/api/pets/${petId}`, { method: "DELETE" });
-      if (!response.ok) {
+      const deleted = await deletePet(petId);
+      if (!deleted) {
         setBusy(false);
         window.alert("Could not delete this pet. Try again.");
         return;
       }
-      router.push("/");
-      router.refresh();
+      onDeleted?.();
     } catch {
       setBusy(false);
       window.alert("Could not delete this pet. Try again.");

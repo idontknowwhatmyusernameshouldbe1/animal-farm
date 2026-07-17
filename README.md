@@ -1,6 +1,22 @@
 # Animal Farm
 
-Personal pet gallery webapp — upload photos, add a name and description. Works in the browser on PC and phone.
+Personal pet gallery webapp — upload photos, add a name and description. Runs as a static site on **GitHub Pages**.
+
+Photos and pet data are stored **in your browser** (IndexedDB) on that device. They are not uploaded to GitHub.
+
+## Use on GitHub Pages
+
+After deploy, open:
+
+`https://YOUR_GITHUB_USERNAME.github.io/animal-farm/`
+
+### One-time GitHub setup
+
+1. Push this repo to GitHub (repo name must be `animal-farm`).
+2. Repo **Settings → Pages**:
+   - **Source:** GitHub Actions
+3. Push to `main` (or run the **Deploy to GitHub Pages** workflow manually).
+4. Wait for the workflow to finish, then open the Pages URL.
 
 ## Run locally
 
@@ -9,21 +25,13 @@ npm install
 npm run dev
 ```
 
-- **PC:** open [http://localhost:3000](http://localhost:3000)
-- **Phone (same Wi‑Fi):** open `http://YOUR_PC_IP:3000`
+Open [http://localhost:3000](http://localhost:3000).
 
-Photos and data are stored on this machine under `data/`.
+Locally there is no `/animal-farm` prefix. Production Pages URLs include it.
 
-## Deploy online (Railway)
+```bash
+npm run build
+npm start
+```
 
-Gives you a public HTTPS URL that works on any device. Photos and the database are stored on a Railway volume.
-
-1. Push this project to GitHub.
-2. Sign up at [railway.app](https://railway.app) and **New Project → Deploy from GitHub repo** (select this repo).
-3. Open the service → **Settings → Volumes** → add a volume with mount path `/data`.
-4. Under **Settings → Networking**, generate a public domain.
-5. Redeploy if needed, then open the Railway URL on your phone or any PC.
-
-Optional: set environment variable `DATA_DIR=/data` (the Docker image already defaults to this).
-
-**Note:** Anyone with the URL can add, edit, or delete pets (there is no login yet).
+Serves the static `out/` folder (with the `/animal-farm` base path).

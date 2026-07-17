@@ -1,7 +1,0 @@
-node_modules
-.next
-.git
-data
-.env*
-.DS_Store
-npm-debug.log*
