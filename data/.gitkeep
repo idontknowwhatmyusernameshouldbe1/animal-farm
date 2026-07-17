@@ -1,0 +1,4 @@
+data/
+!data/.gitkeep
+data/uploads/
+!data/uploads/.gitkeep

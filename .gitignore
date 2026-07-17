@@ -39,3 +39,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local pet data
+/data/*.db
+/data/*.db-*
+/data/uploads/*
+!/data/uploads/.gitkeep
+!/data/.gitkeep
