@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { LanguageProvider, useLanguage } from "@/components/LanguageProvider";
 import LanguageToggle from "@/components/LanguageToggle";
+import { ThemeProvider } from "@/components/ThemeProvider";
+import ThemeToggle from "@/components/ThemeToggle";
 
 const WINDOWS_APP_URL =
   "https://idontknowwhatmyusernameshouldbe1.github.io/animal-farm-windows/";
@@ -24,6 +26,7 @@ function Shell({ children }) {
           >
             {t.windowsApp}
           </a>
+          <ThemeToggle />
           <LanguageToggle />
         </div>
       </header>
@@ -34,8 +37,10 @@ function Shell({ children }) {
 
 export default function AppShell({ children }) {
   return (
-    <LanguageProvider>
-      <Shell>{children}</Shell>
-    </LanguageProvider>
+    <ThemeProvider>
+      <LanguageProvider>
+        <Shell>{children}</Shell>
+      </LanguageProvider>
+    </ThemeProvider>
   );
 }
