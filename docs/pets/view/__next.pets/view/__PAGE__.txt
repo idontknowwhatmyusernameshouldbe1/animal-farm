@@ -1,0 +1,7 @@
+1:"$Sreact.fragment"
+2:"$Sreact.suspense"
+3:I[963,["/animal-farm/_next/static/chunks/39c16oen24-6c.js","/animal-farm/_next/static/chunks/14mrh2-p_w84d.js","/animal-farm/_next/static/chunks/0qbidxz5efdng.js"],"default"]
+4:I[18832,["/animal-farm/_next/static/chunks/39c16oen24-6c.js","/animal-farm/_next/static/chunks/14mrh2-p_w84d.js","/animal-farm/_next/static/chunks/0qbidxz5efdng.js"],"default"]
+5:I[97367,["/animal-farm/_next/static/chunks/39c16oen24-6c.js","/animal-farm/_next/static/chunks/14mrh2-p_w84d.js"],"OutletBoundary"]
+0:{"rsc":["$","$1","c",{"children":[["$","$2",null,{"fallback":["$","$L3",null,{}],"children":["$","$L4",null,{}]}],[["$","script","script-0",{"src":"/animal-farm/_next/static/chunks/0qbidxz5efdng.js","async":true}]],["$","$L5",null,{"children":["$","$2",null,{"name":"Next.MetadataOutlet","children":"$@6"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"qdBazL34yDHRnY41xTNkR"}
+6:null

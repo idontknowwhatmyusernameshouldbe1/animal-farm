@@ -4,19 +4,19 @@ Personal pet gallery webapp — upload photos, add a name and description. Runs 
 
 Photos and pet data are stored **in your browser** (IndexedDB) on that device. They are not uploaded to GitHub.
 
-## Use on GitHub Pages
+## Live site
 
-After deploy, open:
+https://idontknowwhatmyusernameshouldbe1.github.io/animal-farm/
 
-`https://YOUR_GITHUB_USERNAME.github.io/animal-farm/`
+### If the site shows this README instead of the app
 
-### One-time GitHub setup
+1. Open [Pages settings](https://github.com/idontknowwhatmyusernameshouldbe1/animal-farm/settings/pages)
+2. Under **Build and deployment → Source**, choose **Deploy from a branch**
+3. **Branch:** `master` · **Folder:** `/docs`
+4. Click **Save**
+5. Wait a minute, then hard-refresh the live site
 
-1. Push this repo to GitHub (repo name must be `animal-farm`).
-2. Repo **Settings → Pages**:
-   - **Source:** GitHub Actions
-3. Push to `main` (or run the **Deploy to GitHub Pages** workflow manually).
-4. Wait for the workflow to finish, then open the Pages URL.
+(Alternatively, set **Source** to **GitHub Actions** — the deploy workflow builds the same app.)
 
 ## Run locally
 
@@ -28,10 +28,3 @@ npm run dev
 Open [http://localhost:3000](http://localhost:3000).
 
 Locally there is no `/animal-farm` prefix. Production Pages URLs include it.
-
-```bash
-npm run build
-npm start
-```
-
-Serves the static `out/` folder (with the `/animal-farm` base path).
